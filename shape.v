@@ -5,7 +5,7 @@ module sgldraw
 import plot
 import sokol.sgl
 import math
-import earcut
+import sgldraw.earcut
 
 pub const (
 	deg2rad = f32((math.pi * 2) / 360)
