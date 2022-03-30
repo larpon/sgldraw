@@ -3,6 +3,7 @@
 `sgldraw` is a GPU accelerated, fairly performant, V module for
 drawing vector shapes through `sokol.sgl`.
 
+The example can be run with: `v run examples/app.v`:
 ![screenshot](https://raw.githubusercontent.com/Larpon/sgldraw/master/img/screenshot.png)
 
 The special thing about `sgldraw` is that it's real-time - meaning that it'll draw all
@@ -22,12 +23,13 @@ I'm releasing it to the public in case some of the code might
 be of interest to anyone.
 
 ## Notes
-**The module is not supported**
+
+**Legacy project**
 
 It's not completely abandoned, but my focus is currently elsewhere
 in V-land.
 
-The example can be run with: `v run examples/app.v`
+**Licenses**
 
 Some code found in this module is adapted from code originally written by
 Chris H.F. Tsang published under the [CPOL License](https://en.wikipedia.org/wiki/Code_Project_Open_License).
