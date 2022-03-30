@@ -53,4 +53,5 @@ jobs:
           sudo apt-get install --quiet -y libfreetype6-dev libxi-dev libxcursor-dev libgl-dev
 
       - name: Build ${{ github.event.repository.name }}
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos') # TODO
         run: v examples
