@@ -44,7 +44,7 @@ jobs:
         if: startsWith(matrix.os,'windows')
         run: |
           cd ..
-          copy-item -force sgldraw $home\.vmodules\
+          move-item -force sgldraw $home\.vmodules\
 
       - name: Install dependencies
         if: startsWith(matrix.os,'ubuntu')
