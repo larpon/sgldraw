@@ -29,7 +29,8 @@ jobs:
 
       - name: Checkout ${{ github.event.repository.name }}
         uses: actions/checkout@v2
-        path: sgldraw # Because of Windows multifile access *sigh*
+        with:
+          path: sgldraw # Because of Windows multifile access *sigh*
 
       - name: Check if code is formatted
         run: |
