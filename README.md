@@ -33,3 +33,7 @@ It's not completely abandoned but my focus is currently elsewhere
 in V-land.
 
 The example can be run with: `v run examples/app.v`
+
+Some code found in this module is adapted from code under
+the [CPOL License](https://en.wikipedia.org/wiki/Code_Project_Open_License)
+Original author of the aforementioned code is Chris H.F. Tsang.
