@@ -29,23 +29,25 @@ jobs:
 
       - name: Checkout ${{ github.event.repository.name }}
         uses: actions/checkout@v2
+        with:
+          path: sgldraw # Because of Windows multifile access *sigh*
 
       - name: Check if code is formatted
         run: |
+          cd sgldraw
           v fmt -verify . || v fmt -diff .
 
       - name: Install as module
         if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
         run: |
+          cd sgldraw
           mkdir -p ~/.vmodules
           ln -s $(pwd) ~/.vmodules/
 
-#      - name: Install as module
-#        if: startsWith(matrix.os,'windows')
-#        run: |
-#          cd ..
-#          move-item -force sgldraw $home\.vmodules\
-          # The process cannot access the file 'D:\a\sgldraw\sgldraw' because it is being used by another process.
+      - name: Install as module
+        if: startsWith(matrix.os,'windows')
+        run: |
+          move-item -force sgldraw $home\.vmodules\
 
       - name: Install dependencies
         if: startsWith(matrix.os,'ubuntu')
@@ -54,5 +56,9 @@ jobs:
           sudo apt-get install --quiet -y libfreetype6-dev libxi-dev libxcursor-dev libgl-dev
 
       - name: Build ${{ github.event.repository.name }}
-        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos') # TODO
-        run: v examples
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
+        run: v sgldraw/examples
+
+      - name: Build ${{ github.event.repository.name }}
+        if: startsWith(matrix.os,'windows')
+        run: v $home\.vmodules\sgldraw\examples
