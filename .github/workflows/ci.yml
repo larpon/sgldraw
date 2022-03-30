@@ -34,13 +34,13 @@ jobs:
         if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
         run: |
           mkdir -p ~/.vmodules
-          cd sgldraw
           ln -s $(pwd) ~/.vmodules/
           ls -al ~/.vmodules/
 
       - name: windows specifics
         if: startsWith(matrix.os,'windows')
         run: |
+          cd ..
           copy-item -force sgldraw $home\.vmodules\
 
       - name: Build ${{ github.event.repository.name }}
