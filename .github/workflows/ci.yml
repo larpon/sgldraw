@@ -57,4 +57,9 @@ jobs:
           sudo apt-get install --quiet -y libfreetype6-dev libxi-dev libxcursor-dev libgl-dev
 
       - name: Build ${{ github.event.repository.name }}
+        if: startsWith(matrix.os,'windows')
+        run: v sgldraw\examples
+
+      - name: Build ${{ github.event.repository.name }}
+        if: !startsWith(matrix.os,'windows')
         run: v sgldraw/examples
