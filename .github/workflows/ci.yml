@@ -40,11 +40,12 @@ jobs:
           mkdir -p ~/.vmodules
           ln -s $(pwd) ~/.vmodules/
 
-      - name: Install as module
-        if: startsWith(matrix.os,'windows')
-        run: |
-          cd ..
-          move-item -force sgldraw $home\.vmodules\
+#      - name: Install as module
+#        if: startsWith(matrix.os,'windows')
+#        run: |
+#          cd ..
+#          move-item -force sgldraw $home\.vmodules\
+          # The process cannot access the file 'D:\a\sgldraw\sgldraw' because it is being used by another process.
 
       - name: Install dependencies
         if: startsWith(matrix.os,'ubuntu')
