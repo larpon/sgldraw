@@ -3,8 +3,16 @@ name: CI
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - "**.md"
   pull_request:
     branches: [master]
+    paths-ignore:
+      - "**.md"
+
+concurrency:
+  group: build-ci-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -24,7 +32,27 @@ jobs:
 
       - name: Check if code is formatted
         run: |
-          v fmt -diff .
-          v fmt -verify .
+          v fmt -verify . || v fmt -diff .
+
+      - name: Install as module
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
+        run: |
+          mkdir -p ~/.vmodules
+          ln -s $(pwd) ~/.vmodules/
+
+#      - name: Install as module
+#        if: startsWith(matrix.os,'windows')
+#        run: |
+#          cd ..
+#          move-item -force sgldraw $home\.vmodules\
+          # The process cannot access the file 'D:\a\sgldraw\sgldraw' because it is being used by another process.
+
+      - name: Install dependencies
+        if: startsWith(matrix.os,'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install --quiet -y libfreetype6-dev libxi-dev libxcursor-dev libgl-dev
+
       - name: Build ${{ github.event.repository.name }}
-        run: v .
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos') # TODO
+        run: v examples
