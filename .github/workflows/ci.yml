@@ -47,7 +47,6 @@ jobs:
       - name: Install as module
         if: startsWith(matrix.os,'windows')
         run: |
-          Start-Sleep -Seconds 10 # The process cannot access the file 'D:\a\sgldraw\sgldraw' because it is being used by another process.
           move-item -force sgldraw $home\.vmodules\
 
       - name: Install dependencies
@@ -62,4 +61,4 @@ jobs:
 
       - name: Build ${{ github.event.repository.name }}
         if: startsWith(matrix.os,'windows')
-        run: v sgldraw\\examples
+        run: v $home\.vmodules\sgldraw\examples
