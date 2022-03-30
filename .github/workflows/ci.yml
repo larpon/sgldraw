@@ -61,5 +61,5 @@ jobs:
         run: v sgldraw\examples
 
       - name: Build ${{ github.event.repository.name }}
-        if: !startsWith(matrix.os,'windows')
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
         run: v sgldraw/examples
