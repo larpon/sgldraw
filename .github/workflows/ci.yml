@@ -34,7 +34,9 @@ jobs:
         if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
         run: |
           mkdir -p ~/.vmodules
-          ln -s $(pwd)/sgldraw ~/.vmodules/
+          cd sgldraw
+          ln -s $(pwd) ~/.vmodules/
+          ls -al ~/.vmodules/
 
       - name: windows specifics
         if: startsWith(matrix.os,'windows')
