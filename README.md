@@ -28,7 +28,8 @@ I'm releasing it to the public in case some of the code might
 be of interest to anyone.
 
 ## Notes
-**The module not supported** is not completely abandoned but my focus
-is currently elsewhere in V-land.
+**The module not supported**
+It's not completely abandoned but my focus is currently elsewhere
+in V-land.
 
 The example can be run with: `v run examples/app.v`
