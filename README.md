@@ -18,7 +18,7 @@ It was an experiment on doing real-time vector graphics and also
 to explore a way to package vector shape drawing into a self-contained
 and standalone module.
 
-`sgldraw` has served as a personal playground but
+`sgldraw` has served as a personal sandbox but
 I'm releasing it to the public in case some of the code might
 be of interest to anyone.
 

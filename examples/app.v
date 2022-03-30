@@ -82,7 +82,7 @@ fn (mut a App) cleanup() {
 }
 
 fn (mut a App) run() {
-	title := 'draw demo'
+	title := 'sgldraw'
 	desc := sapp.Desc{
 		width: a.width
 		height: a.height
