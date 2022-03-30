@@ -3,7 +3,7 @@
 `sgldraw` is a GPU accelerated, fairly performant, V module for
 drawing vector shapes through `sokol.sgl`.
 
-![screenshot](https://github.com/Larpon/sgldraw/img/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/Larpon/sgldraw/master/img/screenshot.png)
 
 The special thing about `sgldraw` is that it can do real-time vector graphics - so
 you can draw things like a polygon with line-width > 1. Drawn shapes can also
