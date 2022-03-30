@@ -10,6 +10,10 @@ on:
     paths-ignore:
       - "**.md"
 
+concurrency:
+  group: build-ci-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
 jobs:
   build:
     strategy:
@@ -30,18 +34,23 @@ jobs:
         run: |
           v fmt -verify . || v fmt -diff .
 
-      - name: linux and mac specifics
+      - name: Install as module
         if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
         run: |
           mkdir -p ~/.vmodules
           ln -s $(pwd) ~/.vmodules/
-          ls -al ~/.vmodules/
 
-      - name: windows specifics
+      - name: Install as module
         if: startsWith(matrix.os,'windows')
         run: |
           cd ..
           copy-item -force sgldraw $home\.vmodules\
+
+      - name: Install dependencies
+        if: startsWith(matrix.os,'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install --quiet -y libfreetype6-dev libxi-dev libxcursor-dev libgl-dev
 
       - name: Build ${{ github.event.repository.name }}
         run: v examples
