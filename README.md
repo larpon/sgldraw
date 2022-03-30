@@ -34,6 +34,9 @@ in V-land.
 
 The example can be run with: `v run examples/app.v`
 
-Some code found in this module is adapted from code under
-the [CPOL License](https://en.wikipedia.org/wiki/Code_Project_Open_License)
-Original author of the aforementioned code is Chris H.F. Tsang.
+Some code found in this module is adapted from code originally written by
+original author is Chris H.F. Tsang published under the [CPOL License](https://en.wikipedia.org/wiki/Code_Project_Open_License).
+
+Also note that the `earbox` module is based on work licenced under the [ISC License](https://github.com/mapbox/earcut/blob/master/LICENSE).
+
+Both CPOL and ISC are very permissive licenses that ressembles MIT
