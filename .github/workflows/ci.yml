@@ -30,5 +30,16 @@ jobs:
         run: |
           v fmt -verify . || v fmt -diff .
 
+      - name: linux and mac specifics
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
+        run: |
+          mkdir -p ~/.vmodules
+          ln -s $(pwd)/sgldraw ~/.vmodules/
+
+      - name: windows specifics
+        if: startsWith(matrix.os,'windows')
+        run: |
+          copy-item -force sgldraw $home\.vmodules\
+
       - name: Build ${{ github.event.repository.name }}
         run: v examples
