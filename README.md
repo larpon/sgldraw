@@ -5,9 +5,12 @@ drawing vector shapes through `sokol.sgl`.
 
 ![screenshot](https://raw.githubusercontent.com/Larpon/sgldraw/master/img/screenshot.png)
 
-The special thing about `sgldraw` is that it can do real-time vector graphics - so
-you can draw things like a polygon with line-width > 1. Drawn shapes can also
-be animated with `sgl` transforms.
+The special thing about `sgldraw` is that it's real-time - meaning that it'll draw all
+shapes from scratch 60 frames per second.
+
+It also handles line widths > 1 - which makes the shapes look more like they'd do in
+e.g. Inkscape. All shapes can also be animated with `sgl` transforms or by changing
+each vertice coordinate the shapes is made up from.
 
 ## Dependencies
 [earcut](https://github.com/Larpon/earcut)
@@ -25,6 +28,7 @@ I'm releasing it to the public in case some of the code might
 be of interest to anyone.
 
 ## Notes
-**The module not supported and is more or less abandoned**
+**The module not supported** is not completely abandoned but my focus
+is currently elsewhere in V-land.
 
 The example can be run with: `v run examples/app.v`
