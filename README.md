@@ -22,6 +22,14 @@ and standalone module.
 I'm releasing it to the public in case some of the code might
 be of interest to anyone.
 
+## Install
+
+```bash
+git clone https://github.com/Larpon/sgldraw.git ~/.vmodules/sgldraw
+```
+When `sgldraw` is in `~/.vmodules/` you can run the examples and import
+it as a normal V module with `import sgldraw`.
+
 ## Notes
 
 **Legacy project**
