@@ -46,7 +46,7 @@ fn load_image(opt ImageLoadOptions) ?Image {
 		// eprintln(@MOD+'.'+@STRUCT+'.'+@FN+' loading "$image_path" from cache')
 		mut img := cache.get_image(uid)
 		if !img.ready {
-			mut buffer := []byte{}
+			mut buffer := []u8{}
 			image_path = img.path
 			$if android {
 				image_path = image_path.replace('assets/', '') // TODO
@@ -93,7 +93,7 @@ fn load_image(opt ImageLoadOptions) ?Image {
 		return img
 	}
 
-	mut buffer := []byte{}
+	mut buffer := []u8{}
 	$if android {
 		image_path = image_path.replace('assets/', '') // TODO
 		buffer = os.read_apk_asset(image_path) or {
@@ -147,7 +147,7 @@ fn (mut img Image) init_sokol_image() {
 		num_mipmaps: img.mipmaps
 		wrap_u: .clamp_to_edge
 		wrap_v: .clamp_to_edge
-		label: &byte(0)
+		label: &u8(0)
 		d3d11_texture: 0
 		pixel_format: .rgba8 // C.SG_PIXELFORMAT_RGBA8
 	}

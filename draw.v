@@ -14,10 +14,10 @@ pub const (
 // Color
 pub struct Color {
 mut:
-	r byte
-	g byte
-	b byte
-	a byte
+	r u8
+	g u8
+	b u8
+	a u8
 }
 
 pub struct Colors {
@@ -62,12 +62,12 @@ fn dpi_scale() f32 {
 }
 
 [inline]
-pub fn rgb(r byte, g byte, b byte) Color {
-	return Color{r, g, b, byte(255)}
+pub fn rgb(r u8, g u8, b u8) Color {
+	return Color{r, g, b, u8(255)}
 }
 
 [inline]
-pub fn rgba(r byte, g byte, b byte, a byte) Color {
+pub fn rgba(r u8, g u8, b u8, a u8) Color {
 	return Color{r, g, b, a}
 }
 
