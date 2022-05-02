@@ -13,7 +13,7 @@ pub const (
 
 // Color
 pub struct Color {
-mut:
+pub mut:
 	r u8
 	g u8
 	b u8
