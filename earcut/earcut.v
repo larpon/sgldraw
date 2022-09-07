@@ -139,7 +139,7 @@ fn earcut_linked(mut ear_ Node, mut triangles []i64, dim int, min_x f32, min_y f
 	mut stop := ear
 	mut prev := &Node(0)
 	mut next := &Node(0)
-	mut nil := &Node(0)
+	mut null := &Node(0)
 	// iterate through ears, slicing them one by one
 	for !equals(ear.prev, ear.next) {
 		prev = ear.prev
@@ -161,11 +161,11 @@ fn earcut_linked(mut ear_ Node, mut triangles []i64, dim int, min_x f32, min_y f
 		if equals(ear, stop) {
 			// try filtering points and slicing again
 			if pass == 0 {
-				mut res := filter_points(mut ear, mut nil)
+				mut res := filter_points(mut ear, mut null)
 				earcut_linked(mut res, mut triangles, dim, min_x, min_y, inv_size, 1)
 				// if this didn't work, try curing all small self-intersections locally
 			} else if pass == 1 {
-				mut filtered := filter_points(mut ear, mut nil)
+				mut filtered := filter_points(mut ear, mut null)
 				ear = cure_local_intersections(mut filtered, mut triangles, dim)
 				earcut_linked(mut ear, mut triangles, dim, min_x, min_y, inv_size, 2)
 				// as a last resort, try splitting the remaining polygon into two
@@ -277,7 +277,7 @@ fn cure_local_intersections(mut start_ Node, mut triangles []i64, dim int) &Node
 	start = start_
 
 	mut p := start
-	mut nil := &Node(0)
+	mut null := &Node(0)
 	for {
 		a := p.prev
 
@@ -302,14 +302,14 @@ fn cure_local_intersections(mut start_ Node, mut triangles []i64, dim int) &Node
 			break
 		}
 	}
-	return filter_points(mut p, mut nil)
+	return filter_points(mut p, mut null)
 }
 
 // split_earcut try splitting polygon into two and triangulate them independently
 [direct_array_access; inline]
 fn split_earcut(start &Node, mut triangles []i64, dim int, min_x f32, min_y f32, inv_size f32) {
 	// look for a valid diagonal that divides the polygon into two
-	mut a := start
+	mut a := unsafe { start }
 	for {
 		mut b := a.next.next
 		for !equals(b, a.prev) {
@@ -406,7 +406,7 @@ fn eliminate_hole(mut hole_ Node, mut outer_node_ Node) &Node {
 // find_hole_bridge David Eberly's algorithm for finding a bridge between hole and outer polygon
 [inline]
 fn find_hole_bridge(hole &Node, outer_node &Node) &Node {
-	mut p := outer_node
+	mut p := unsafe { outer_node }
 	hx := hole.x
 	hy := hole.y
 	mut qx := -math.max_f32
@@ -480,7 +480,7 @@ fn sector_contains_sector(m &Node, p &Node) bool {
 // index_curve interlink polygon nodes in z-order
 [inline]
 fn index_curve(start &Node, min_x f32, min_y f32, inv_size f32) {
-	mut p := start
+	mut p := unsafe { start }
 	for {
 		if p.z == 0 {
 			p.z = z_order(p.x, p.y, min_x, min_y, inv_size)
@@ -583,8 +583,8 @@ fn z_order(x f32, y f32, min_x f32, min_y f32, inv_size f32) u16 {
 // get_leftmost find the leftmost node of a polygon ring
 [inline]
 fn get_leftmost(start &Node) &Node {
-	mut p := start
-	mut leftmost := start
+	mut p := unsafe { start }
+	mut leftmost := unsafe { start }
 	for {
 		if p.x < leftmost.x || (p.x == leftmost.x && p.y < leftmost.y) {
 			leftmost = p
@@ -696,7 +696,7 @@ fn sign(num f32) int {
 [inline]
 fn intersects_polygon(a &Node, b &Node) bool {
 	// mut p := &Node(0)
-	mut p := a
+	mut p := unsafe { a }
 	for {
 		if p.i != a.i && p.next.i != a.i && p.i != b.i && p.next.i != b.i
 			&& intersects(p, p.next, a, b) {
@@ -723,7 +723,7 @@ fn locally_inside(a &Node, b &Node) bool {
 // middle_inside check if the middle point of a polygon diagonal is inside the polygon
 [inline]
 fn middle_inside(a &Node, b &Node) bool {
-	mut p := a
+	mut p := unsafe { a }
 	// mut p := &Node(0)
 	mut inside := false
 	px := (a.x + b.x) / 2
@@ -814,13 +814,13 @@ mut:
 	x f32
 	y f32
 	// previous and next vertex nodes in a polygon ring
-	prev &Node = 0
-	next &Node = 0
+	prev &Node = unsafe { nil }
+	next &Node = unsafe { nil }
 	// z-order curve value
 	z f32
 	// previous and next nodes in z-order
-	prev_z &Node = 0
-	next_z &Node = 0
+	prev_z &Node = unsafe { nil }
+	next_z &Node = unsafe { nil }
 	// indicates whether this is a steiner point
 	steiner bool
 }

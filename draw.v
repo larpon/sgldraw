@@ -117,7 +117,9 @@ fn (mut c Cache) free() {
 }
 
 pub fn free() {
-	mut c := sgldraw.cache
-	c.free()
+	unsafe {
+		mut c := sgldraw.cache
+		c.free()
+	}
 	// unsafe { C.free(c) }
 }

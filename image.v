@@ -85,8 +85,10 @@ fn load_image(opt ImageLoadOptions) ?Image {
 
 			if img.cache {
 				eprintln(@MOD + '.' + @STRUCT + '.' + @FN + ' caching "$uid"')
-				mut c := cache
-				c.images[uid] = img
+				unsafe {
+					mut c := cache
+					c.images[uid] = img
+				}
 			}
 			return img
 		}
@@ -132,8 +134,10 @@ fn load_image(opt ImageLoadOptions) ?Image {
 
 	if img.cache && !cache.has_image(uid) {
 		eprintln(@MOD + '.' + @FN + ' caching "$uid"')
-		mut c := cache
-		c.images[uid] = img
+		unsafe {
+			mut c := cache
+			c.images[uid] = img
+		}
 	}
 
 	return img
