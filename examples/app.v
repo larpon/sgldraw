@@ -213,8 +213,8 @@ fn init(user_data voidptr) {
 	color_state := gfx.ColorState{
 		blend: gfx.BlendState{
 			enabled: true
-			src_factor_rgb: gfx.BlendFactor(C.SG_BLENDFACTOR_SRC_ALPHA)
-			dst_factor_rgb: gfx.BlendFactor(C.SG_BLENDFACTOR_ONE_MINUS_SRC_ALPHA)
+			src_factor_rgb: .src_alpha
+			dst_factor_rgb: .one_minus_src_alpha
 		}
 	}
 	pipdesc.colors[0] = color_state
