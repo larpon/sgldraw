@@ -51,22 +51,22 @@ fn load_image(opt ImageLoadOptions) ?Image {
 			$if android {
 				image_path = image_path.replace('assets/', '') // TODO
 				buffer = os.read_apk_asset(image_path) or {
-					return error(@MOD + '.' + @FN + ' (Android) file "$image_path" not found')
+					return error(@MOD + '.' + @FN + ' (Android) file "${image_path}" not found')
 				}
 			} $else {
 				if !os.is_file(image_path) {
-					return error(@MOD + '.' + @FN + ' file "$image_path" not found')
+					return error(@MOD + '.' + @FN + ' file "${image_path}" not found')
 					// return none
 				}
 				image_path = os.real_path(image_path)
 				buffer = os.read_bytes(image_path) or {
-					return error(@MOD + '.' + @FN + ' file "$image_path" could not be read')
+					return error(@MOD + '.' + @FN + ' file "${image_path}" could not be read')
 				}
 			}
 
 			// stb_img := stbi.load(opt.path) or { return err }
 			stb_img := stbi.load_from_memory(buffer.data, buffer.len) or {
-				return error(@MOD + '.' + @FN + ' stbi failed loading "$image_path"')
+				return error(@MOD + '.' + @FN + ' stbi failed loading "${image_path}"')
 			}
 
 			img = Image{
@@ -84,7 +84,7 @@ fn load_image(opt ImageLoadOptions) ?Image {
 			// stb_img.free() // TODO ??
 
 			if img.cache {
-				eprintln(@MOD + '.' + @STRUCT + '.' + @FN + ' caching "$uid"')
+				eprintln(@MOD + '.' + @STRUCT + '.' + @FN + ' caching "${uid}"')
 				unsafe {
 					mut c := cache
 					c.images[uid] = img
@@ -99,21 +99,21 @@ fn load_image(opt ImageLoadOptions) ?Image {
 	$if android {
 		image_path = image_path.replace('assets/', '') // TODO
 		buffer = os.read_apk_asset(image_path) or {
-			return error(@MOD + '.' + @FN + ' (Android) file "$image_path" not found')
+			return error(@MOD + '.' + @FN + ' (Android) file "${image_path}" not found')
 		}
 	} $else {
 		if !os.is_file(image_path) {
-			return error(@MOD + '.' + @FN + ' file "$image_path" not found')
+			return error(@MOD + '.' + @FN + ' file "${image_path}" not found')
 			// return none
 		}
 		image_path = os.real_path(image_path)
 		buffer = os.read_bytes(image_path) or {
-			return error(@MOD + '.' + @FN + ' file "$image_path" could not be read')
+			return error(@MOD + '.' + @FN + ' file "${image_path}" could not be read')
 		}
 	}
 
 	stb_img := stbi.load_from_memory(buffer.data, buffer.len) or {
-		return error(@MOD + '.' + @FN + ' stbi failed loading "$image_path"')
+		return error(@MOD + '.' + @FN + ' stbi failed loading "${image_path}"')
 	}
 
 	mut img := Image{
@@ -130,10 +130,10 @@ fn load_image(opt ImageLoadOptions) ?Image {
 	img.init_sokol_image()
 	// stb_img.free() // TODO ??
 
-	eprintln(@MOD + '.' + @FN + ' loaded "$img.path" ...')
+	eprintln(@MOD + '.' + @FN + ' loaded "${img.path}" ...')
 
 	if img.cache && !cache.has_image(uid) {
-		eprintln(@MOD + '.' + @FN + ' caching "$uid"')
+		eprintln(@MOD + '.' + @FN + ' caching "${uid}"')
 		unsafe {
 			mut c := cache
 			c.images[uid] = img

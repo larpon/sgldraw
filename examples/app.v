@@ -239,7 +239,7 @@ fn frame(user_data voidptr) {
 	app.dt = f32(t - app.last) / 1000.0
 
 	if app.width != sapp.width() || app.height != sapp.height() {
-		app.d.pln(.app, 'resized from ${app.width}x$app.height to ${sapp.width()}x$sapp.height()')
+		app.d.pln(.app, 'resized from ${app.width}x${app.height} to ${sapp.width()}x${sapp.height()}')
 		app.on_resized()
 		app.width = sapp.width()
 		app.height = sapp.height()
@@ -271,7 +271,7 @@ fn event(ev &sapp.Event, mut a App) {
 	if ev.@type == .touches_began || ev.@type == .touches_moved {
 		if ev.num_touches > 0 {
 			touch_point := ev.touches[0]
-			a.d.pln(.input, '$touch_point')
+			a.d.pln(.input, '${touch_point}')
 			//
 		}
 	}
@@ -284,7 +284,7 @@ fn (a App) draw() {
 	if !a.ready {
 		return
 	}
-	a.d.plng(.draw | .flood, @STRUCT + '.' + @FN + '() called dT: $a.dt ...')
+	a.d.plng(.draw | .flood, @STRUCT + '.' + @FN + '() called dT: ${a.dt} ...')
 
 	sgl.defaults()
 
