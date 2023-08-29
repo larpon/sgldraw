@@ -36,7 +36,7 @@ mut:
 	sg_image gfx.Image
 }
 
-fn load_image(opt ImageLoadOptions) ?Image {
+fn load_image(opt ImageLoadOptions) !Image {
 	// eprintln(@MOD+'.'+@STRUCT+'.'+@FN+' loading "${opt.path}" ...')
 
 	mut image_path := opt.path

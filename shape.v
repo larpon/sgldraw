@@ -40,7 +40,7 @@ pub fn (mut b Shape) set_colors(outline Color, solid Color) {
 
 [inline]
 pub fn (b Shape) rectangle(x f32, y f32, w f32, h f32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 	if scale_factor != 1 {
@@ -90,7 +90,7 @@ pub fn (b Shape) rectangle(x f32, y f32, w f32, h f32) {
 
 [inline]
 pub fn (b Shape) line(x1 f32, y1 f32, x2 f32, y2 f32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	c := b.colors.outline
 	sgl.c4b(c.r, c.g, c.b, c.a)
 
@@ -162,7 +162,7 @@ pub fn (b Shape) line(x1 f32, y1 f32, x2 f32, y2 f32) {
 
 [inline]
 pub fn (b Shape) uniform_segment_poly(x f32, y f32, radius f32, steps u32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 
@@ -226,7 +226,7 @@ pub fn (b Shape) uniform_segment_poly(x f32, y f32, radius f32, steps u32) {
 
 [inline]
 pub fn (b Shape) segment_poly(x f32, y f32, radius_x f32, radius_y f32, steps u32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 	if scale_factor != 1 {
@@ -289,7 +289,7 @@ pub fn (b Shape) segment_poly(x f32, y f32, radius_x f32, radius_y f32, steps u3
 
 [inline]
 pub fn (b Shape) uniform_line_segment_poly(x f32, y f32, radius f32, steps u32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 
@@ -355,7 +355,7 @@ pub fn (b Shape) uniform_line_segment_poly(x f32, y f32, radius f32, steps u32) 
 
 [inline]
 pub fn (b Shape) line_segment_poly(x f32, y f32, radius_x f32, radius_y f32, steps u32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 	if scale_factor != 1 {
@@ -437,7 +437,7 @@ pub fn (b Shape) convex_poly(points []f32, offset_x f32, offset_y f32) {
 
 [direct_array_access; inline]
 pub fn (b Shape) poly(points []f32, holes []int, offset_x f32, offset_y f32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	off_x := offset_x * scale_factor
 	off_y := offset_y * scale_factor
 	if scale_factor != 1 {
@@ -586,7 +586,7 @@ pub fn (b Shape) poly(points []f32, holes []int, offset_x f32, offset_y f32) {
 
 [inline]
 pub fn (b Shape) arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_rad f32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 	sair := loopf(start_angle_in_rad - (90 * sgldraw.deg2rad), 0, sgldraw.rad_max)
@@ -625,7 +625,7 @@ pub fn (b Shape) arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_
 
 [inline]
 pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 	if scale_factor != 1 {
@@ -754,7 +754,7 @@ pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 
 [inline]
 pub fn (b Shape) triangle(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	x1_ := x1 * scale_factor
 	y1_ := y1 * scale_factor
 	dx := x1 - x1_
@@ -819,7 +819,7 @@ pub fn (b Shape) image(x f32, y f32, w f32, h f32, path string) {
 		return
 	}
 
-	scale_factor := b.scale * sgldraw.dpi_scale()
+	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
 	if scale_factor != 1 {

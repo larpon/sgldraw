@@ -199,7 +199,7 @@ fn (mut a App) on_key_up(ev &sapp.Event) {
 }
 
 fn init(user_data voidptr) {
-	mut app := &App(user_data)
+	mut app := unsafe { &App(user_data) }
 
 	desc := sapp.create_desc()
 	gfx.setup(&desc)
@@ -225,13 +225,13 @@ fn init(user_data voidptr) {
 }
 
 fn cleanup(user_data voidptr) {
-	mut app := &App(user_data)
+	mut app := unsafe { &App(user_data) }
 	app.cleanup()
 	gfx.shutdown()
 }
 
 fn frame(user_data voidptr) {
-	mut app := &App(user_data)
+	mut app := unsafe { &App(user_data) }
 	app.frame++
 
 	t := time.ticks()
