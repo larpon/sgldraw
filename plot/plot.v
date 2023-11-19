@@ -10,18 +10,18 @@ pub enum Plot {
 	solid
 }
 
-[inline]
+@[inline]
 pub fn point(x f32, y f32) {
 	sgl.v2f(x, y)
 }
 
-[inline]
+@[inline]
 pub fn line(x1 f32, y1 f32, x2 f32, y2 f32) {
 	sgl.v2f(x1, y1)
 	sgl.v2f(x2, y2)
 }
 
-[inline]
+@[inline]
 pub fn rectangle(x f32, y f32, w f32, h f32) {
 	sgl.v2f(x, y)
 	sgl.v2f((x + w), y)
@@ -29,7 +29,7 @@ pub fn rectangle(x f32, y f32, w f32, h f32) {
 	sgl.v2f(x, (y + h))
 }
 
-[inline]
+@[inline]
 pub fn arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_rad f32, steps u32, plot Plot) {
 	theta := f32(angle_in_rad / f32(steps))
 	tan_factor := math.tanf(theta)
@@ -50,7 +50,7 @@ pub fn arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_rad f32, s
 	}
 }
 
-[inline]
+@[inline]
 pub fn arc_line(x f32, y f32, radius f32, width f32, start_angle_in_rad f32, angle_in_rad f32, steps u32) {
 	mut theta := f32(0)
 	for i := 0; i < steps; i++ {

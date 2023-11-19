@@ -26,7 +26,7 @@ pub mut:
 	outline Color
 }
 
-[flag]
+@[flag]
 pub enum Fill {
 	invisible
 	outline
@@ -34,14 +34,14 @@ pub enum Fill {
 	debug
 }
 
-[flag]
+@[flag]
 pub enum Cap {
 	butt
 	round
 	square
 }
 
-[flag]
+@[flag]
 pub enum Connect {
 	miter
 	bevel
@@ -61,37 +61,37 @@ fn dpi_scale() f32 {
 	return s
 }
 
-[inline]
+@[inline]
 pub fn rgb(r u8, g u8, b u8) Color {
 	return Color{r, g, b, u8(255)}
 }
 
-[inline]
+@[inline]
 pub fn rgba(r u8, g u8, b u8, a u8) Color {
 	return Color{r, g, b, a}
 }
 
-[inline]
+@[inline]
 pub fn push_matrix() {
 	sgl.push_matrix()
 }
 
-[inline]
+@[inline]
 pub fn pop_matrix() {
 	sgl.pop_matrix()
 }
 
-[inline]
+@[inline]
 pub fn translate(x f32, y f32, z f32) {
 	sgl.translate(x, y, z)
 }
 
-[inline]
+@[inline]
 pub fn rotate(angle_in_rad f32, x f32, y f32, z f32) {
 	sgl.rotate(angle_in_rad, x, y, z)
 }
 
-[inline]
+@[inline]
 pub fn scale(x f32, y f32, z f32) {
 	sgl.scale(x, y, z)
 }

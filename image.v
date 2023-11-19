@@ -16,7 +16,7 @@ mut:
 	path    string
 }
 
-[heap]
+@[heap]
 pub struct Image {
 pub:
 	width  int
@@ -33,7 +33,8 @@ mut:
 	data voidptr
 	ext  string
 
-	sg_image gfx.Image
+	sg_image   gfx.Image
+	sg_sampler gfx.Sampler
 }
 
 fn load_image(opt ImageLoadOptions) !Image {
@@ -149,8 +150,6 @@ fn (mut img Image) init_sokol_image() {
 		width: img.width
 		height: img.height
 		num_mipmaps: img.mipmaps
-		wrap_u: .clamp_to_edge
-		wrap_v: .clamp_to_edge
 		label: &u8(0)
 		d3d11_texture: 0
 		pixel_format: .rgba8 // C.SG_PIXELFORMAT_RGBA8
@@ -164,6 +163,15 @@ fn (mut img Image) init_sokol_image() {
 	if img.mipmaps <= 0 {
 		img.sg_image = gfx.make_image(&img_desc)
 	}
+
+	mut smp_desc := gfx.SamplerDesc{
+		min_filter: .linear
+		mag_filter: .linear
+		wrap_u: .clamp_to_edge
+		wrap_v: .clamp_to_edge
+	}
+
+	img.sg_sampler = gfx.make_sampler(&smp_desc)
 }
 
 pub fn (mut img Image) free() {

@@ -38,7 +38,7 @@ pub fn (mut b Shape) set_colors(outline Color, solid Color) {
 	b.colors.solid = solid
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) rectangle(x f32, y f32, w f32, h f32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -88,7 +88,7 @@ pub fn (b Shape) rectangle(x f32, y f32, w f32, h f32) {
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) line(x1 f32, y1 f32, x2 f32, y2 f32) {
 	scale_factor := b.scale * dpi_scale()
 	c := b.colors.outline
@@ -160,7 +160,7 @@ pub fn (b Shape) line(x1 f32, y1 f32, x2 f32, y2 f32) {
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) uniform_segment_poly(x f32, y f32, radius f32, steps u32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -224,7 +224,7 @@ pub fn (b Shape) uniform_segment_poly(x f32, y f32, radius f32, steps u32) {
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) segment_poly(x f32, y f32, radius_x f32, radius_y f32, steps u32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -287,7 +287,7 @@ pub fn (b Shape) segment_poly(x f32, y f32, radius_x f32, radius_y f32, steps u3
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) uniform_line_segment_poly(x f32, y f32, radius f32, steps u32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -353,7 +353,7 @@ pub fn (b Shape) uniform_line_segment_poly(x f32, y f32, radius f32, steps u32) 
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) line_segment_poly(x f32, y f32, radius_x f32, radius_y f32, steps u32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -419,23 +419,23 @@ pub fn (b Shape) line_segment_poly(x f32, y f32, radius_x f32, radius_y f32, ste
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) circle(x f32, y f32, radius f32, steps u32) {
 	b.uniform_line_segment_poly(x, y, radius, u32(sgldraw.rad_max * radius))
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) ellipse(x f32, y f32, radius_x f32, radius_y f32, steps u32) {
 	b.line_segment_poly(x, y, radius_x, radius_y, u32(sgldraw.rad_max * math.max(radius_x,
 		radius_y)))
 }
 
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn (b Shape) convex_poly(points []f32, offset_x f32, offset_y f32) {
 	b.poly(points, sgldraw.no_indicies, offset_x, offset_y)
 }
 
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn (b Shape) poly(points []f32, holes []int, offset_x f32, offset_y f32) {
 	scale_factor := b.scale * dpi_scale()
 	off_x := offset_x * scale_factor
@@ -584,7 +584,7 @@ pub fn (b Shape) poly(points []f32, holes []int, offset_x f32, offset_y f32) {
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_rad f32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -623,7 +623,7 @@ pub fn (b Shape) arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
@@ -752,7 +752,7 @@ pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) triangle(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
 	scale_factor := b.scale * dpi_scale()
 	x1_ := x1 * scale_factor
@@ -812,7 +812,7 @@ pub fn (b Shape) triangle(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
 	}
 }
 
-[inline]
+@[inline]
 pub fn (b Shape) image(x f32, y f32, w f32, h f32, path string) {
 	img := load_image(path: path) or { return }
 	if !img.ready {
@@ -841,7 +841,7 @@ pub fn (b Shape) image(x f32, y f32, w f32, h f32, path string) {
 	push_matrix()
 
 	sgl.enable_texture()
-	sgl.texture(img.sg_image)
+	sgl.texture(img.sg_image, img.sg_sampler)
 	sgl.translate(f32(sx), f32(sy), 0)
 	// sgl.c4b(p.color.r, p.color.g, p.color.b, p.color.a)
 	sgl.c4b(255, 255, 255, 255)
@@ -865,7 +865,7 @@ pub fn (b Shape) image(x f32, y f32, w f32, h f32, path string) {
 
 // Utility functions for sgldraw.ng an anchor point
 
-[inline]
+@[inline]
 fn (b Shape) anchor(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
 	// Original author Chris H.F. Tsang / CPOL License
 	// https://www.codeproject.com/Articles/226569/Drawing-polylines-by-tessellation
@@ -1041,17 +1041,17 @@ fn (b Shape) anchor(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
 	*/
 }
 
-[inline]
+@[inline]
 fn line_segment_angle(x1 f32, y1 f32, x2 f32, y2 f32) f32 {
 	return math.pi + f32(math.atan2(y1 - y2, x1 - x2))
 }
 
-[inline]
+@[inline]
 fn line_segment_length(x1 f32, y1 f32, x2 f32, y2 f32) f32 {
 	return math.sqrtf(((y2 - y1) * (y2 - y1)) + ((x2 - x1) * (x2 - x1)))
 }
 
-[inline]
+@[inline]
 fn rotate_point(cx f32, cy f32, px f32, py f32, angle_in_radians f32) (f32, f32) {
 	s := math.sinf(angle_in_radians)
 	c := math.cosf(angle_in_radians)
@@ -1069,12 +1069,12 @@ fn rotate_point(cx f32, cy f32, px f32, py f32, angle_in_radians f32) (f32, f32)
 	return npx, npy
 }
 
-[inline]
+@[inline]
 fn midpoint(x1 f32, y1 f32, x2 f32, y2 f32) (f32, f32) {
 	return (x1 + x2) / 2, (y1 + y2) / 2
 }
 
-[inline]
+@[inline]
 fn loop(value int, from int, to int) int {
 	range := to - from
 	offset_value := value - from // value relative to 0
@@ -1082,7 +1082,7 @@ fn loop(value int, from int, to int) int {
 	return (offset_value - int((math.floor(offset_value / range) * range))) + from
 }
 
-[inline]
+@[inline]
 fn loopf(value f32, from f32, to f32) f32 {
 	range := to - from
 	offset_value := value - from // value relative to 0
@@ -1091,17 +1091,17 @@ fn loopf(value f32, from f32, to f32) f32 {
 }
 
 // perpendicular anti-clockwise 90 degrees
-[inline]
+@[inline]
 fn perpendicular(x f32, y f32) (f32, f32) {
 	return -y, x
 }
 
-[inline]
+@[inline]
 fn signed_area(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) f32 {
 	return (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)
 }
 
-[inline]
+@[inline]
 fn normalize(x f32, y f32) (f32, f32) {
 	w := math.sqrtf(x * x + y * y)
 	return x / w, y / w
@@ -1110,7 +1110,7 @@ fn normalize(x f32, y f32) (f32, f32) {
 // x1, y1, x2, y2 = line 1
 // x3, y3, x4, y4 = line 2
 // output: (output point x,y, intersection type)
-[inline]
+@[inline]
 fn intersect(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32, x4 f32, y4 f32) (f32, f32, int) {
 	// Determine the intersection point of two line steps
 	// http://paulbourke.net/geometry/lineline2d/

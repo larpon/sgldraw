@@ -19,7 +19,7 @@ fn main() {
 	app.run()
 }
 
-[heap]
+@[heap]
 struct App {
 	pass_action gfx.PassAction
 mut:
@@ -210,7 +210,7 @@ fn init(user_data voidptr) {
 	mut pipdesc := gfx.PipelineDesc{}
 	unsafe { C.memset(&pipdesc, 0, sizeof(pipdesc)) }
 
-	color_state := gfx.ColorState{
+	color_state := gfx.ColorTargetState{
 		blend: gfx.BlendState{
 			enabled: true
 			src_factor_rgb: .src_alpha
@@ -372,8 +372,8 @@ fn (a App) draw() {
 	wbr.poly([f32(0), 0, 100, 0, 150, 50, 110, 70, 80, 50, 40, 60, 0, 10], []int{}, arx + 150,
 		ary + 100 * 1.1)
 
-	wbr.poly([f32(0), 0, 40, -40, 100, 0, 150, 50, 110, 70, 80, 50, 40, 60, 0, 10 /* h */, 20,
-		5, 40, -2, 70, 32, 32, 20], [8], arx + 150, ary + 300)
+	wbr.poly([f32(0), 0, 40, -40, 100, 0, 150, 50, 110, 70, 80, 50, 40, 60, 0, 10, 20, 5, 40, -2,
+		70, 32, 32, 20], [8], arx + 150, ary + 300)
 
 	wbr.convex_poly([f32(0), 0, 100, 0, 150, 50, 150, 80, 80, 100, 0, 50], arx + 400 * 1.1,
 		ary + 400 * 1.1)
@@ -396,7 +396,7 @@ fn (a App) draw() {
 	//}
 }
 
-[inline]
+@[inline]
 fn loopf(value f32, from f32, to f32) f32 {
 	range := to - from
 	offset_value := value - from // value relative to 0
@@ -406,7 +406,7 @@ fn loopf(value f32, from f32, to f32) f32 {
 
 // Debug stuff
 
-[flag]
+@[flag]
 pub enum Flag {
 	app
 	print
@@ -452,7 +452,7 @@ fn (d Debug) state(flag Flag) string {
 	return if d.has(flag) { 'on' } else { 'off' }
 }
 
-[if !prod]
+@[if !prod]
 fn (d Debug) pln(flag Flag, str string) {
 	if !d.flags.has(.print) {
 		return
@@ -463,7 +463,7 @@ fn (d Debug) pln(flag Flag, str string) {
 	}
 }
 
-[if !prod]
+@[if !prod]
 fn (d Debug) plng(flag Flag, str string) {
 	if !d.flags.has(.print) {
 		return
