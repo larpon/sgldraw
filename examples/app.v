@@ -14,7 +14,7 @@ fn main() {
 	mut app := &App{
 		width: 1000
 		height: 600
-		pass_action: gfx.create_clear_pass(0.6, 0.5, 0.4, 1.0)
+		pass_action: gfx.create_clear_pass_action(0.6, 0.5, 0.4, 1.0)
 	}
 	app.run()
 }
@@ -248,7 +248,8 @@ fn frame(user_data voidptr) {
 	app.handle_input()
 	app.draw()
 
-	gfx.begin_default_pass(&app.pass_action, app.width, app.height)
+	pass := sapp.create_default_pass(app.pass_action)
+	gfx.begin_pass(&pass)
 	sgl.default_pipeline()
 	sgl.draw()
 	gfx.end_pass()

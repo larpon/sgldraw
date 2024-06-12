@@ -7,9 +7,7 @@ import sokol.sapp
 
 const cache = &Cache{}
 
-pub const (
-	dpi_scale_factor = dpi_scale()
-)
+pub const dpi_scale_factor = dpi_scale()
 
 // Color
 pub struct Color {
@@ -107,7 +105,7 @@ fn (c Cache) has_image(id string) bool {
 }
 
 fn (c Cache) get_image(id string) Image {
-	return c.images[id]
+	return c.images[id] or { panic('get_image failed to get ${id} from cache') }
 }
 
 fn (mut c Cache) free() {

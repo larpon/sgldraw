@@ -7,19 +7,15 @@ import sokol.sgl
 import math
 import sgldraw.earcut
 
-pub const (
-	deg2rad = f32((math.pi * 2) / 360)
-	rad2deg = f32(360 / (math.pi * 2))
-)
+pub const deg2rad = f32((math.pi * 2) / 360)
+pub const rad2deg = f32(360 / (math.pi * 2))
 
-const (
-	rad_max     = 2 * math.pi
-	deg90rad    = 90 * deg2rad
-	debug_shape = Shape{
-		colors: Colors{rgba(255, 0, 0, 55), rgba(255, 0, 0, 55)}
-	}
-	no_indicies = []int{len: 0, cap: 0}
-)
+const rad_max = 2 * math.pi
+const deg90rad = 90 * deg2rad
+const debug_shape = Shape{
+	colors: Colors{rgba(255, 0, 0, 55), rgba(255, 0, 0, 55)}
+}
+const no_indicies = []int{len: 0, cap: 0}
 
 pub struct Shape {
 pub mut:
