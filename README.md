@@ -4,7 +4,7 @@
 drawing vector shapes through `sokol.sgl`.
 
 The example can be run with: `v run examples/app.v`:
-![screenshot](https://raw.githubusercontent.com/Larpon/sgldraw/master/img/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/larpon/sgldraw/master/img/screenshot.png)
 
 The special thing about `sgldraw` is that it's real-time - meaning that it'll draw all
 shapes from scratch 60 frames per second.
@@ -25,7 +25,7 @@ be of interest to anyone.
 ## Install
 
 ```bash
-git clone https://github.com/Larpon/sgldraw.git ~/.vmodules/sgldraw
+git clone https://github.com/larpon/sgldraw.git ~/.vmodules/sgldraw
 ```
 When `sgldraw` is in `~/.vmodules/` you can run the examples and import
 it as a normal V module with `import sgldraw`.
@@ -43,6 +43,6 @@ Some code found in this module is adapted from code originally written by
 Chris H.F. Tsang published under the [CPOL License](https://en.wikipedia.org/wiki/Code_Project_Open_License).
 
 Also note that the `earcut` module is based on work licenced under the [ISC License](https://github.com/mapbox/earcut/blob/master/LICENSE).
-The version of `earcut` is from [Larpon/earcut](https://github.com/Larpon/earcut/)@[1790a9e](https://github.com/Larpon/earcut/tree/1790a9e60dae09889b95b337acb205699fd4f51e).
+The version of `earcut` is from [Larpon/earcut](https://github.com/larpon/earcut/)@[1790a9e](https://github.com/larpon/earcut/tree/1790a9e60dae09889b95b337acb205699fd4f51e).
 
 Both CPOL and ISC are very permissive licenses that ressembles MIT
