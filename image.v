@@ -71,15 +71,15 @@ fn load_image(opt ImageLoadOptions) !Image {
 			}
 
 			img = Image{
-				width: stb_img.width
-				height: stb_img.height
+				width:    stb_img.width
+				height:   stb_img.height
 				channels: stb_img.nr_channels
-				cache: opt.cache
-				ready: stb_img.ok
-				data: stb_img.data
-				ext: stb_img.ext
-				path: opt.path
-				mipmaps: opt.mipmaps
+				cache:    opt.cache
+				ready:    stb_img.ok
+				data:     stb_img.data
+				ext:      stb_img.ext
+				path:     opt.path
+				mipmaps:  opt.mipmaps
 			}
 			img.init_sokol_image()
 			// stb_img.free() // TODO ??
@@ -118,15 +118,15 @@ fn load_image(opt ImageLoadOptions) !Image {
 	}
 
 	mut img := Image{
-		width: stb_img.width
-		height: stb_img.height
+		width:    stb_img.width
+		height:   stb_img.height
 		channels: stb_img.nr_channels
-		cache: opt.cache
-		ready: stb_img.ok
-		data: stb_img.data
-		ext: stb_img.ext
-		path: opt.path
-		mipmaps: opt.mipmaps
+		cache:    opt.cache
+		ready:    stb_img.ok
+		data:     stb_img.data
+		ext:      stb_img.ext
+		path:     opt.path
+		mipmaps:  opt.mipmaps
 	}
 	img.init_sokol_image()
 	// stb_img.free() // TODO ??
@@ -147,16 +147,16 @@ fn load_image(opt ImageLoadOptions) !Image {
 fn (mut img Image) init_sokol_image() {
 	// eprintln('\n init sokol image $img.path ok=$img.sg_image_ok')
 	mut img_desc := gfx.ImageDesc{
-		width: img.width
-		height: img.height
-		num_mipmaps: img.mipmaps
-		label: &u8(0)
+		width:         img.width
+		height:        img.height
+		num_mipmaps:   img.mipmaps
+		label:         &u8(0)
 		d3d11_texture: 0
-		pixel_format: .rgba8 // C.SG_PIXELFORMAT_RGBA8
+		pixel_format:  .rgba8 // C.SG_PIXELFORMAT_RGBA8
 	}
 
 	img_desc.data.subimage[0][0] = gfx.Range{
-		ptr: img.data
+		ptr:  img.data
 		size: usize(img.channels * img.width * img.height)
 	}
 
@@ -167,8 +167,8 @@ fn (mut img Image) init_sokol_image() {
 	mut smp_desc := gfx.SamplerDesc{
 		min_filter: .linear
 		mag_filter: .linear
-		wrap_u: .clamp_to_edge
-		wrap_v: .clamp_to_edge
+		wrap_u:     .clamp_to_edge
+		wrap_v:     .clamp_to_edge
 	}
 
 	img.sg_sampler = gfx.make_sampler(&smp_desc)

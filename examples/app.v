@@ -12,8 +12,8 @@ import sgldraw as draw
 
 fn main() {
 	mut app := &App{
-		width: 1000
-		height: 600
+		width:       1000
+		height:      600
 		pass_action: gfx.create_clear_pass_action(0.6, 0.5, 0.4, 1.0)
 	}
 	app.run()
@@ -84,16 +84,16 @@ fn (mut a App) cleanup() {
 fn (mut a App) run() {
 	title := 'sgldraw'
 	desc := sapp.Desc{
-		width: a.width
-		height: a.height
-		user_data: a
-		init_userdata_cb: init
-		frame_userdata_cb: frame
-		event_userdata_cb: event
-		window_title: title.str
-		html5_canvas_name: title.str
+		width:               a.width
+		height:              a.height
+		user_data:           a
+		init_userdata_cb:    init
+		frame_userdata_cb:   frame
+		event_userdata_cb:   event
+		window_title:        title.str
+		html5_canvas_name:   title.str
 		cleanup_userdata_cb: cleanup
-		sample_count: 4
+		sample_count:        4
 	}
 	sapp.run(&desc)
 }
@@ -212,7 +212,7 @@ fn init(user_data voidptr) {
 
 	color_state := gfx.ColorTargetState{
 		blend: gfx.BlendState{
-			enabled: true
+			enabled:        true
 			src_factor_rgb: .src_alpha
 			dst_factor_rgb: .one_minus_src_alpha
 		}
@@ -312,27 +312,27 @@ fn (a App) draw() {
 		// connect: .round
 	}
 	mut wbr := draw.Shape{
-		scale: bs
+		scale:   bs
 		connect: .round //.miter //.round //.bevel
-		radius: 4.5
-		colors: draw.Colors{draw.rgba(0, 0, 0, 127), draw.rgba(255, 255, 255, 127)}
+		radius:  4.5
+		colors:  draw.Colors{draw.rgba(0, 0, 0, 127), draw.rgba(255, 255, 255, 127)}
 	}
 
 	grey_blue := draw.Shape{
-		scale: bs
+		scale:  bs
 		colors: draw.Colors{draw.rgb(127, 127, 127), draw.rgb(0, 0, 127)}
 	}
 
 	thick_line := draw.Shape{
-		scale: bs
+		scale:  bs
 		radius: 4
 		colors: draw.Colors{draw.rgba(0, 127, 25, 127), draw.rgba(0, 127, 25, 127)}
 	}
 
 	dbgf := if a.d.all(.draw) { draw.Fill.debug } else { draw.Fill.invisible }
 	debug_brush := draw.Shape{
-		scale: bs
-		fill: dbgf
+		scale:  bs
+		fill:   dbgf
 		colors: draw.Colors{draw.rgba(0, 0, 125, 25), draw.rgba(0, 0, 125, 25)}
 	}
 
