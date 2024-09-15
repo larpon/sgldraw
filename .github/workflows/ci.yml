@@ -33,6 +33,7 @@ jobs:
           path: sgldraw # Because of Windows multifile access *sigh*
 
       - name: Check if code is formatted
+        if: startsWith(matrix.os,'ubuntu') || startsWith(matrix.os,'macos')
         run: |
           cd sgldraw
           v fmt -verify . || v fmt -diff .
