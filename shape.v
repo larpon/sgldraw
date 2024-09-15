@@ -77,7 +77,7 @@ pub fn (b Shape) rectangle(x f32, y f32, w f32, h f32) {
 		}
 	}
 	if b.fill.has(.debug) {
-		sgldraw.debug_shape.rectangle(x, y, w, h)
+		debug_shape.rectangle(x, y, w, h)
 	}
 	if scale_factor != 1 {
 		pop_matrix()
@@ -417,18 +417,17 @@ pub fn (b Shape) line_segment_poly(x f32, y f32, radius_x f32, radius_y f32, ste
 
 @[inline]
 pub fn (b Shape) circle(x f32, y f32, radius f32, steps u32) {
-	b.uniform_line_segment_poly(x, y, radius, u32(sgldraw.rad_max * radius))
+	b.uniform_line_segment_poly(x, y, radius, u32(rad_max * radius))
 }
 
 @[inline]
 pub fn (b Shape) ellipse(x f32, y f32, radius_x f32, radius_y f32, steps u32) {
-	b.line_segment_poly(x, y, radius_x, radius_y, u32(sgldraw.rad_max * math.max(radius_x,
-		radius_y)))
+	b.line_segment_poly(x, y, radius_x, radius_y, u32(rad_max * math.max(radius_x, radius_y)))
 }
 
 @[direct_array_access; inline]
 pub fn (b Shape) convex_poly(points []f32, offset_x f32, offset_y f32) {
-	b.poly(points, sgldraw.no_indicies, offset_x, offset_y)
+	b.poly(points, no_indicies, offset_x, offset_y)
 }
 
 @[direct_array_access; inline]
@@ -567,7 +566,7 @@ pub fn (b Shape) poly(points []f32, holes []int, offset_x f32, offset_y f32) {
 			x3 := off_x + points[indicies[i + 2] * dim]
 			y3 := off_y + points[indicies[i + 2] * dim + 1]
 
-			sgldraw.debug_shape.triangle(x1, y1, x2, y2, x3, y3)
+			debug_shape.triangle(x1, y1, x2, y2, x3, y3)
 		}
 
 		/*
@@ -585,7 +584,7 @@ pub fn (b Shape) arc(x f32, y f32, radius f32, start_angle_in_rad f32, angle_in_
 	scale_factor := b.scale * dpi_scale()
 	sx := x * scale_factor
 	sy := y * scale_factor
-	sair := loopf(start_angle_in_rad - (90 * sgldraw.deg2rad), 0, sgldraw.rad_max)
+	sair := loopf(start_angle_in_rad - (90 * deg2rad), 0, rad_max)
 	if scale_factor != 1 {
 		push_matrix()
 		translate(sx, sy, 0)
@@ -631,7 +630,7 @@ pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 		translate(-sx, -sy, 0)
 	}
 	r := radius
-	steps := sgldraw.rad_max * r
+	steps := rad_max * r
 
 	if b.fill.has(.solid) {
 		c := b.colors.solid
@@ -643,28 +642,28 @@ pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 		// left top
 		lx := sx + r
 		ly := sy + r
-		plot.arc(lx, ly, r, 180 * sgldraw.deg2rad, sgldraw.deg90rad, segdiv, .solid)
+		plot.arc(lx, ly, r, 180 * deg2rad, deg90rad, segdiv, .solid)
 
 		// right top
 		rx := sx + w - r
 		ry := sy + r
 		sgl.v2f(rx, ry - r)
 		sgl.v2f(rx, ry)
-		plot.arc(rx, ry, r, 270 * sgldraw.deg2rad, sgldraw.deg90rad, segdiv, .solid)
+		plot.arc(rx, ry, r, 270 * deg2rad, deg90rad, segdiv, .solid)
 
 		// right bottom
 		rbx := rx
 		rby := sy + h - r
 		sgl.v2f(rbx + r, rby)
 		sgl.v2f(rbx, rby)
-		plot.arc(rbx, rby, r, 0, sgldraw.deg90rad, segdiv, .solid)
+		plot.arc(rbx, rby, r, 0, deg90rad, segdiv, .solid)
 
 		// left bottom
 		lbx := lx
 		lby := sy + h - r
 		sgl.v2f(lbx, lby + r)
 		sgl.v2f(lbx, lby)
-		plot.arc(lbx, lby, r, sgldraw.deg90rad, sgldraw.deg90rad, segdiv, .solid)
+		plot.arc(lbx, lby, r, deg90rad, deg90rad, segdiv, .solid)
 
 		sgl.v2f(lx - r, ly)
 		sgl.v2f(lx, ly)
@@ -690,19 +689,19 @@ pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 			sgl.begin_line_strip()
 			lx := sx + r
 			ly := sy + r
-			plot.arc(lx, ly, r, 180 * sgldraw.deg2rad, sgldraw.deg90rad, segdiv, .outline)
+			plot.arc(lx, ly, r, 180 * deg2rad, deg90rad, segdiv, .outline)
 			rx := sx + w - r
 			ry := sy + r
 			// right top
-			plot.arc(rx, ry, r, 270 * sgldraw.deg2rad, sgldraw.deg90rad, segdiv, .outline)
+			plot.arc(rx, ry, r, 270 * deg2rad, deg90rad, segdiv, .outline)
 			rbx := rx
 			rby := sy + h - r
 			// right bottom
-			plot.arc(rbx, rby, r, 0, sgldraw.deg90rad, segdiv, .outline)
+			plot.arc(rbx, rby, r, 0, deg90rad, segdiv, .outline)
 			// left bottom
 			lbx := lx
 			lby := sy + h - r
-			plot.arc(lbx, lby, r, sgldraw.deg90rad, sgldraw.deg90rad, segdiv, .outline)
+			plot.arc(lbx, lby, r, deg90rad, deg90rad, segdiv, .outline)
 
 			sgl.v2f(lx - r, ly)
 			sgl.end()
@@ -711,30 +710,28 @@ pub fn (b Shape) rounded_rectangle(x f32, y f32, w f32, h f32, radius f32) {
 			// left top
 			lx := sx + r
 			ly := sy + r
-			plot.arc_line(lx, ly, r, b.radius, 180 * sgldraw.deg2rad, sgldraw.deg90rad,
-				segdiv)
+			plot.arc_line(lx, ly, r, b.radius, 180 * deg2rad, deg90rad, segdiv)
 
 			// right top
 			rx := sx + w - r
 			ry := sy + r
 			sgl.v2f(rx, ry - (r + b.radius))
 			sgl.v2f(rx, ry - (r - b.radius))
-			plot.arc_line(rx, ry, r, b.radius, 270 * sgldraw.deg2rad, sgldraw.deg90rad,
-				segdiv)
+			plot.arc_line(rx, ry, r, b.radius, 270 * deg2rad, deg90rad, segdiv)
 
 			// right bottom
 			rbx := rx
 			rby := sy + h - r
 			sgl.v2f(rbx + (r + b.radius), rby)
 			sgl.v2f(rbx + (r - b.radius), rby)
-			plot.arc_line(rbx, rby, r, b.radius, 0, sgldraw.deg90rad, segdiv)
+			plot.arc_line(rbx, rby, r, b.radius, 0, deg90rad, segdiv)
 
 			// left bottom
 			lbx := lx
 			lby := sy + h - r
 			sgl.v2f(lbx, lby + (r + b.radius))
 			sgl.v2f(lbx, lby + (r - b.radius))
-			plot.arc_line(lbx, lby, r, b.radius, sgldraw.deg90rad, sgldraw.deg90rad, segdiv)
+			plot.arc_line(lbx, lby, r, b.radius, deg90rad, deg90rad, segdiv)
 
 			sgl.v2f(lx - (r + b.radius), ly)
 			sgl.v2f(lx - (r - b.radius), ly)
@@ -909,7 +906,7 @@ fn (b Shape) anchor(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
 	vp_x := ip_x
 	vp_y := ip_y
 
-	vpp_x, vpp_y := rotate_point(x2, y2, vp_x, vp_y, 180 * sgldraw.deg2rad)
+	vpp_x, vpp_y := rotate_point(x2, y2, vp_x, vp_y, 180 * deg2rad)
 
 	/*
 	sgl.c3b(155,0,0)
@@ -933,8 +930,8 @@ fn (b Shape) anchor(x1 f32, y1 f32, x2 f32, y2 f32, x3 f32, y3 f32) {
 	bt_x := t2_x - x3 + x2
 	bt_y := t2_y - y3 + y2
 
-	t0r_x, t0r_y := rotate_point(x1, y1, t0_x, t0_y, 180 * sgldraw.deg2rad)
-	t2r_x, t2r_y := rotate_point(x3, y3, t2_x, t2_y, 180 * sgldraw.deg2rad)
+	t0r_x, t0r_y := rotate_point(x1, y1, t0_x, t0_y, 180 * deg2rad)
+	t2r_x, t2r_y := rotate_point(x3, y3, t2_x, t2_y, 180 * deg2rad)
 
 	// println('T0: $t0_x, $t0_y vP: $vp_x, $vp_y -vP: $vpp_x, $vpp_y')
 	// sgl.c4b(c.r, c.g, c.b, 40)
