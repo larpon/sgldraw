@@ -286,7 +286,7 @@ fn cure_local_intersections(mut start_ Node, mut triangles []i64, dim int) &Node
 		// TODO BUG WORKAROUND
 		// b := p.next.next
 		mut p_next := p.next
-		b := p_next
+		mut b := p_next
 
 		if !equals(a, b) && intersects(a, p, p.next, b) && locally_inside(a, b)
 			&& locally_inside(b, a) {
